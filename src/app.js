@@ -74,7 +74,7 @@ function create() {
   game.stage.disableVisibilityChange = true;
 
   var items = CONFIG.getConfig('ITEMS');
-  //var items = ['heart', 'heart', 'heart', 'heart', 'heart'];
+  
   reel = new Reel({
     'game': game,
     'items': items
