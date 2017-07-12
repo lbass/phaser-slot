@@ -1,0 +1,80 @@
+{
+  "frames": [
+    {
+      "filename": "senven",
+      "frame": {"x":0,"y":0,"w":499,"h":498},
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {"x":0,"y":0,"w":498,"h":498},
+      "sourceSize": {"w":499,"h":498}
+    },
+    {
+      "filename": "watermelon",
+      "frame": {"x":552,"y":0,"w":499,"h":498},
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {"x":0,"y":0,"w":499,"h":498},
+      "sourceSize": {"w":499,"h":498}
+    },
+    {
+      "filename": "violet",
+      "frame": {"x":1100,"y":0,"w":499,"h":498},
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {"x":0,"y":0,"w":499,"h":498},
+      "sourceSize": {"w":499,"h":498}
+    },
+    {
+      "filename": "lemon",
+      "frame": {"x":0,"y":544,"w":499,"h":498},
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {"x":0,"y":0,"w":499,"h":498},
+      "sourceSize": {"w":499,"h":498}
+    },
+    {
+      "filename": "banana",
+      "frame": {"x":552,"y":544,"w":499,"h":498},
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {"x":0,"y":0,"w":499,"h":498},
+      "sourceSize": {"w":499,"h":498}
+    },
+    {
+      "filename": "text",
+      "frame": {"x":1100,"y":544,"w":499,"h":498},
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {"x":0,"y":0,"w":499,"h":498},
+      "sourceSize": {"w":499,"h":498}
+    },
+    {
+      "filename": "cherry",
+      "frame": {"x":0,"y":1087,"w":499,"h":498},
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {"x":0,"y":0,"w":499,"h":498},
+      "sourceSize": {"w":499,"h":498}
+    },
+    {
+      "filename": "bar",
+      "frame": {"x":552,"y":1087,"w":499,"h":498},
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {"x":0,"y":0,"w":499,"h":498},
+      "sourceSize": {"w":499,"h":498}
+    },
+    {
+      "filename": "orange",
+      "frame": {"x":1100,"y":1087,"w":499,"h":498},
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {"x":0,"y":0,"w":499,"h":498},
+      "sourceSize": {"w":499,"h":498}
+    }
+  ],
+  "meta": {
+    "image": "Slot_Machine_Icons.jpg",
+    "scale": "1"
+  }
+}
