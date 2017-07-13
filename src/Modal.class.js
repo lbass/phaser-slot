@@ -32,7 +32,8 @@ Modal.prototype = {
     this.modal = game.add.sprite(this._modalPositionX, this._modalPositionY, imageName + '_modal');
     this.modal.inputEnabled = true;
     this.modal.events.onInputDown.add(function() {
-      this.hideModal();
+      window.open('http://play.google.com/store/apps/details?id=com.nhnent.Qpoker&hl=ko');
+      //this.hideModal();
     }, this);
 
     this.rays = game.add.sprite(this._modalPositionX + 295, this._modalPositionY + 230, 'rays');
@@ -49,7 +50,9 @@ Modal.prototype = {
       this.modal = game.add.sprite(this._modalPositionX, this._modalPositionY + 200, 'gameover-modal');
       this.modal.inputEnabled = true;
       this.modal.events.onInputDown.add(function() {
-        this.hideModal();
+        window.open('http://play.google.com/store/apps/details?id=com.nhnent.Qpoker&hl=ko');
+
+        //this.hideModal();
       }, this);
     }
   },
