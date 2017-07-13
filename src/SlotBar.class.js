@@ -1,4 +1,5 @@
 function SlotBar(props) {
+  this._barPositionX = CONFIG.getConfig('BAR_POSITION_X');
   this._barPositionY = CONFIG.getConfig('BAR_POSITION_Y');
   this._imageSizeX = CONFIG.getConfig('IMAGE_SIZE_X');
   this._imageSizeY = CONFIG.getConfig('IMAGE_SIZE_Y');
@@ -7,12 +8,12 @@ function SlotBar(props) {
   this.game = props.game;
   this.dragBarHandler = props.dragBarHandler;
 
-  var bar = this.game.add.sprite(272, this._barPositionY, 'bar');
-  this.stickUpImage = game.add.sprite(335, this._barPositionY + 90, 'stick-up');
-  this.stickDownImage = game.add.sprite(335, this._barPositionY + 180, 'stick-down');
+  var bar = this.game.add.sprite(this._barPositionX, this._barPositionY, 'bar');
+  this.stickUpImage = game.add.sprite(this._barPositionX + 62, this._barPositionY + 90, 'stick-up');
+  this.stickDownImage = game.add.sprite(this._barPositionX + 62, this._barPositionY + 180, 'stick-down');
   this.stickDownImage.visible = false;
 
-  this.barball = this.game.add.sprite(304, this._barPositionY, 'barball');
+  this.barball = this.game.add.sprite(this._barPositionX + 31, this._barPositionY, 'barball');
   this.barball.inputEnabled = true;
   this.barball.anchor.set(0);
   this.barball.input.enableDrag(false, true, false, 0, null, bar);
@@ -60,7 +61,7 @@ SlotBar.prototype = {
   },
 
   onDragStop: function(){
-    var tween = game.add.tween(this.barball).to( {x: 304, y: this._barPositionY }, 1000, Phaser.Easing.Bounce.Out, true);
+    var tween = game.add.tween(this.barball).to( {x: this._barPositionX + 31, y: this._barPositionY }, 1000, Phaser.Easing.Bounce.Out, true);
     tween.onComplete.add(function() { this.isActive = false; }, this);
     this.dragBarHandler();
   }
