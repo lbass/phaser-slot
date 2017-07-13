@@ -1,14 +1,23 @@
 var CONFIG = {
   _config: {
+    'GAME_WIDTH': 720,
+    'GAME_HEIGHT': 1230,
     'IMAGE_POSITION_X': 55,   //  첫번째 Reel 이미지의 X 좌표
     'IMAGE_SIZE_X': 217,      //  이미지의 가로 넓이
     'IMAGE_SIZE_Y': 220,      //  이미지의 세로 넓이
-    'BAR_POSITION_Y': 600,    //  슬로 바의 Y좌표
+    'BAR_POSITION_Y': 704,    //  슬로 바의 Y좌표
+    'BAR_POSITION_X': 273,
     'TOTAL_PLAY_COUNT': 3,    //  플레이 가능 횟수
-    'REEL_POSITION_Y': 240,
-    'COIN_TUNNEL_X': 80,
-    'COIN_TUNNEL_Y': 950,
+    'REEL_POSITION_Y': 350,
+    'COIN_TUNNEL_Y': 1025,
+    'ITEM_TEXT_POSITION_X': 206,
+    'HEADER_POSITION_X': 205,
+    'HEADER_POSITION_Y': 435,
+    'COIN_GROUP_POSITION_X': 110,
+    'TALK_POSITION_X': 424,
+    'TALK_POSITION_Y': 760,
     'ITEMS': ['heart','king','seven', 'queen', 'poker', 'poker', 'poker']
+    //'ITEMS': ['poker','poker','poker', 'poker', 'poker', 'poker', 'poker']
   },
   getConfig: function(key) {
     var configData = this._config[key];
