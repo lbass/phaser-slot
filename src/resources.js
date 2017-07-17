@@ -16,6 +16,10 @@ var CONFIG = {
     'COIN_GROUP_POSITION_X': 110,
     'TALK_POSITION_X': 424,
     'TALK_POSITION_Y': 760,
+    'SOUND_ONOFF_BUTTON_X': 570,
+    'SOUND_ONOFF_BUTTON_Y': 15,
+    'CLOSE_BUTTON_X': 640,
+    'CLOSE_BUTTON_Y': 15,
     'ITEMS': ['heart','king','seven', 'queen', 'poker', 'poker', 'poker']
     //'ITEMS': ['poker','poker','poker', 'poker', 'poker', 'poker', 'poker']
   },

@@ -41,20 +41,18 @@ Modal.prototype = {
     this.modalCoin = this.game.add.sprite(this._modalPositionX + 200, this._modalPositionY + 180, 'modal_coin');
   },
   showGameOverModal: function() {
-    if(!this.isActivePresentModal) {
-      this.mask = game.add.graphics(0, 0);
-      this.mask.beginFill(0x000000);
-      this.mask.drawRect(0, 0, 720, 1350);
-      this.mask.alpha = 0.7;
+    this.mask = game.add.graphics(0, 0);
+    this.mask.beginFill(0x000000);
+    this.mask.drawRect(0, 0, 720, 1350);
+    this.mask.alpha = 0.7;
 
-      this.modal = game.add.sprite(this._modalPositionX, this._modalPositionY + 200, 'gameover-modal');
-      this.modal.inputEnabled = true;
-      this.modal.events.onInputDown.add(function() {
-        window.open('http://play.google.com/store/apps/details?id=com.nhnent.Qpoker&hl=ko');
+    this.modal = game.add.sprite(this._modalPositionX, this._modalPositionY + 200, 'gameover-modal');
+    this.modal.inputEnabled = true;
+    this.modal.events.onInputDown.add(function() {
+      window.open('http://play.google.com/store/apps/details?id=com.nhnent.Qpoker&hl=ko');
 
-        //this.hideModal();
-      }, this);
-    }
+      //this.hideModal();
+    }, this);
   },
   hideModal: function() {
     this.mask.destroy();
