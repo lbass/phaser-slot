@@ -16,7 +16,6 @@ var credit = {};
 var bodyGroup = {};
 var coinTunnel = {};
 
-
 var gameWidthX = CONFIG.getConfig('GAME_WIDTH');
 var gameHeightX = CONFIG.getConfig('GAME_HEIGHT');
 
@@ -31,6 +30,11 @@ var headerPositionY = CONFIG.getConfig('HEADER_POSITION_X');
 var headerPositionX = CONFIG.getConfig('HEADER_POSITION_Y');
 var talkPositionX = CONFIG.getConfig('TALK_POSITION_X');
 var talkPositionY = CONFIG.getConfig('TALK_POSITION_Y');
+
+var soundOnOffButtonX = CONFIG.getConfig('SOUND_ONOFF_BUTTON_X');
+var soundOnOffButtonY = CONFIG.getConfig('SOUND_ONOFF_BUTTON_Y');
+var closeButtonX = CONFIG.getConfig('CLOSE_BUTTON_X');
+var closeButtonY = CONFIG.getConfig('CLOSE_BUTTON_Y');
 
 var isGameover = false;
 var isGetProduct = false;
@@ -53,6 +57,9 @@ function preload() {
   game.load.image('money-0', 'assets/0.png');
 
   game.load.image('close-button', 'assets/close.png');
+  game.load.image('sound-button-enable', 'assets/v_on.png');
+  game.load.image('sound-button-disable', 'assets/v_off.png');
+
   game.load.image('poker', 'assets/item0.jpg');
   game.load.image('heart', 'assets/item1.jpg');
   game.load.image('king', 'assets/item2.jpg');
@@ -86,6 +93,9 @@ function preload() {
   game.load.script('BlurY', 'src/BlurY.js');
 
   game.load.spritesheet('header-coin', 'assets/coin_ani.gif', 32, 31, 5);
+
+  game.load.audio('speen-reel', 'assets/audio/scroll.mp3');
+  game.load.audio('show-popup', 'assets/audio/ddadan.mp3');
 }
 
 function create() {
@@ -105,7 +115,6 @@ function create() {
     'game': game,
     'items': items
   });
-
   game.add.sprite(0, 0, 'background');
 
   bodyGroup = game.add.group();
@@ -152,6 +161,14 @@ function create() {
   });
   tween.start();
 
+  game.sound.mute = true;
+  fsn.components.SoundOnOffButton({
+      game: game,
+      x: soundOnOffButtonX,
+      y: soundOnOffButtonY,
+      imageName: 'sound-button-disable'
+  });
+
   game.time.events.add(Phaser.Timer.SECOND * 5, showCloseButton, this);
 
   game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -180,22 +197,12 @@ function createCoins() {
 }
 
 function showCloseButton() {
-  var closeButton = this.add.sprite(660, 80, 'close-button');
-  closeButton.inputEnabled = true;
-  closeButton.events.onInputOver.add(function(){
-    this.game.canvas.style.cursor = "pointer";
-  }, this);
-  closeButton.events.onInputOut.add(function(){
-    this.game.canvas.style.cursor = "default";
-  }, this);
-
-  closeButton.anchor.set(0.5, 0.5);
-  closeButton.events.onInputDown.add(
-    function(){
-      if(confirm('게임을 종료하고 창을 닫습니다.\n계속하시겠습니까?')) {
-        window.close();
-      }
-    }, this);
+  fsn.components.GameCloseButton({
+      game: game,
+      x: closeButtonX,
+      y: closeButtonY,
+      imageName: 'close-button'
+  });
 }
 
 function update(){
@@ -213,6 +220,7 @@ function update(){
     //  당첨 되었을 경우
     if(isGetProduct) {
       this.game.time.events.add(Phaser.Timer.SECOND * 2.1, function(){
+        playSound('show-popup');
         modal.showPresentModal(selectedImages.first);
         isGameover = true;
       }, this);
@@ -241,16 +249,14 @@ function spinReels() {
   hideSpritesForPlaying();
 
   money.loadTexture('money-' + ((playCount - 1) * 5).toString() , 0);
+  playSound('speen-reel');
 
   addQuake();
-  game.time.events.add(Phaser.Timer.SECOND * 2, stopReels, this);
+  game.time.events.add(Phaser.Timer.SECOND * 0.6, function(){
+    reel.stopSpinning();
+  }, this);
   reel.startSpinning();
   slotBar.setDragEnable(false);
-}
-
-function stopReels() {
-  stopQuake();
-  reel.stopSpinning();
 }
 
 function checkSlotPoint(selectedImages) {
@@ -284,13 +290,11 @@ function addQuake() {
   var autoStart = true;
   var delay = 0;
   var yoyo = true;
-  var repeat = -1;
+  var repeat = 12;
 
-  quake = game.add.tween(bodyGroup).to({x: bodyGroup.x - 10}, 100, ease, autoStart, delay, repeat, yoyo);
-
+  quake = game.add.tween(bodyGroup).to({x: bodyGroup.x - 10}, duration, ease, autoStart, delay, repeat, yoyo);
 }
 
-function stopQuake() {
-  quake.stop(true);
-  game.add.tween(bodyGroup).to({x: bodyGroup.x + 10}, 100, Phaser.Easing.Bounce.InOut, true);
+function playSound(resouceName) {
+    game.sound.play(resouceName);
 }
