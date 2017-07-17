@@ -20,6 +20,8 @@ var gameWidthX = CONFIG.getConfig('GAME_WIDTH');
 var gameHeightX = CONFIG.getConfig('GAME_HEIGHT');
 
 var playCount = CONFIG.getConfig('TOTAL_PLAY_COUNT');
+var isMute = CONFIG.getConfig('DEFAULT_MUTE');
+
 var coinTunnelY = CONFIG.getConfig('COIN_TUNNEL_Y');
 var reelPositionY = CONFIG.getConfig('REEL_POSITION_Y');
 
@@ -95,7 +97,9 @@ function preload() {
   game.load.spritesheet('header-coin', 'assets/coin_ani.gif', 32, 31, 5);
 
   game.load.audio('speen-reel', 'assets/audio/scroll.mp3');
-  game.load.audio('show-popup', 'assets/audio/ddadan.mp3');
+  game.load.audio('congratulation', 'assets/audio/ddadan.mp3');
+  game.load.audio('coins', 'assets/audio/COIN.mp3');
+  game.load.audio('lever-swipe', 'assets/audio/lever.mp3');
 }
 
 function create() {
@@ -154,19 +158,22 @@ function create() {
   modal = new Modal({game: game});
 
   talk = game.add.sprite(talkPositionX, talkPositionY, 'talk');
-
   var tween = game.add.tween(talk).to( { y:  talk.y - 10 }, 300, Phaser.Easing.Linear.None, false, 0, -1, true);
   tween.interpolation(function(v, k){
     return Phaser.Math.bezierInterpolation(v, k);
   });
   tween.start();
 
-  game.sound.mute = true;
+  game.sound.mute = isMute;
+  var soundButtonImage = 'sound-button-enable';
+  if(game.sound.mute) {
+    soundButtonImage = 'sound-button-disable';
+  }
   fsn.components.SoundOnOffButton({
       game: game,
       x: soundOnOffButtonX,
       y: soundOnOffButtonY,
-      imageName: 'sound-button-disable'
+      imageName: soundButtonImage
   });
 
   game.time.events.add(Phaser.Timer.SECOND * 5, showCloseButton, this);
@@ -177,9 +184,10 @@ function create() {
 }
 
 function createCoins() {
+  playSound('coins');
   for (var y = 0; y < 3; y++) {
-    for (var x = 0; x < 7; x++) {
-      var coin = coinGroup.create(coinGroupPositionX + x * 77, coinTunnelY + 62, 'coin');
+    for (var x = 0; x < 15; x++) {
+      var coin = coinGroup.create(coinGroupPositionX + x * 32, coinTunnelY + 62, 'coin');
       coin.alpha = 0;
       coin.name = 'alien' + x.toString() + y.toString();
       coin.checkWorldBounds = true;
@@ -187,11 +195,11 @@ function createCoins() {
         function (coin) {
           coin.alpha = 0;
           coin.reset(coin.x, coinTunnelY + 62);
-          game.add.tween(coin).to( { alpha: 1 }, 800, Phaser.Easing.Linear.None, true, 0, 0);
-          coin.body.velocity.y = 100 + Math.random() * 100;
+          game.add.tween(coin).to( { alpha: 1 }, 300, Phaser.Easing.Linear.None, true, 0, 0);
+          coin.body.velocity.y = 250 + Math.random() * 100;
         }, this);
-      coin.body.velocity.y = 100 + Math.random() * 100;
-      game.add.tween(coin).to( { alpha: 1 }, 800, Phaser.Easing.Linear.None, true, 0, 0);
+      coin.body.velocity.y = 250 + Math.random() * 100;
+      game.add.tween(coin).to( { alpha: 1 }, 300, Phaser.Easing.Linear.None, true, 0, 0);
     }
   }
 }
@@ -219,8 +227,10 @@ function update(){
 
     //  당첨 되었을 경우
     if(isGetProduct) {
-      this.game.time.events.add(Phaser.Timer.SECOND * 2.1, function(){
-        playSound('show-popup');
+      this.game.time.events.add(Phaser.Timer.SECOND * 2, function(){
+        playSound('congratulation');
+      }, this);
+      this.game.time.events.add(Phaser.Timer.SECOND * 2.5, function(){
         modal.showPresentModal(selectedImages.first);
         isGameover = true;
       }, this);
@@ -265,7 +275,7 @@ function checkSlotPoint(selectedImages) {
   var secondName = selectedImages.second;
   var thirdName = selectedImages.third;
   if(firstName === secondName && firstName === thirdName) {
-    var tween = game.add.tween(successLine).to( { alpha: 1 }, 300, Phaser.Easing.Linear.None, false, 100, 4, false);
+    var tween = game.add.tween(successLine).to( { alpha: 1 }, 300, Phaser.Easing.Linear.None, false, 100, 3, false);
     tween.start();
     createCoins();
     result = true;
@@ -296,5 +306,8 @@ function addQuake() {
 }
 
 function playSound(resouceName) {
-    game.sound.play(resouceName);
+  var music = game.add.audio(resouceName);
+  music.play();
+  //game.sound.play(resouceName);
+  //game.sound.play(resouceName);
 }

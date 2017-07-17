@@ -54,10 +54,12 @@ SlotBar.prototype = {
   },
 
   onDragStart: function(){
+    playSound('lever-swipe');
     this.isActive = true;
   },
 
   onDragUpdate: function(me, point, x, y) {
+    //this.game.debug.text("Distance to pointer: " + this.game.physics.arcade.distanceTo(ball), 32, 32);
   },
 
   onDragStop: function(){

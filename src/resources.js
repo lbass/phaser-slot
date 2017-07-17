@@ -7,7 +7,8 @@ var CONFIG = {
     'IMAGE_SIZE_Y': 220,      //  이미지의 세로 넓이
     'BAR_POSITION_Y': 704,    //  슬로 바의 Y좌표
     'BAR_POSITION_X': 273,
-    'TOTAL_PLAY_COUNT': 3,    //  플레이 가능 횟수
+    'TOTAL_PLAY_COUNT': 3,      //  플레이 가능 횟수
+    'DEFAULT_MUTE': false,  //  디폴트 사운드 켜기
     'REEL_POSITION_Y': 350,
     'COIN_TUNNEL_Y': 1025,
     'ITEM_TEXT_POSITION_X': 206,
@@ -20,12 +21,12 @@ var CONFIG = {
     'SOUND_ONOFF_BUTTON_Y': 15,
     'CLOSE_BUTTON_X': 640,
     'CLOSE_BUTTON_Y': 15,
-    'ITEMS': ['heart','king','seven', 'queen', 'poker', 'poker', 'poker']
+    'ITEMS': ['heart','king','seven', 'queen', 'poker', 'poker', 'poker', 'poker']
     //'ITEMS': ['poker','poker','poker', 'poker', 'poker', 'poker', 'poker']
   },
   getConfig: function(key) {
     var configData = this._config[key];
-    if(!configData) {
+    if(configData === undefined) {
       throw new Error('[' + key + '] is not included in the configuration!!');
     }
     return configData;
